@@ -15,7 +15,7 @@ function playRound(playerSelection, computerSelection) {
             playerSelection == "scissors" && computerSelection == "Rock") {
             console.log(`You Lose! ${computerSelection} beats ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)}`);
             return 0;
-    }else if (playerSelection == computerScore.toLowerCase()) {
+    }else if (playerSelection == computerSelection.toLowerCase()) {
         console.log(`It's a draw! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} ties ${computerSelection}`);
         return 2;
     }else {
