@@ -5,42 +5,22 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    if (playerSelection == "rock") {
-        if (computerSelection == "Rock") {
-            console.log(`It's a draw! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} ties ${computerSelection}`);
-            return 2;
-        } else if (computerSelection == "Paper") {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)}`);
-            return 0;
-        } else if (computerSelection == "Scissors") {
+    if (playerSelection == "rock" && computerSelection == "Scissors" ||
+            playerSelection == "paper" && computerSelection == "Rock" ||
+            playerSelection == "scissors" && computerSelection == "Paper") {
             console.log(`You Win! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} beats ${computerSelection}`);
             return 1;
-        };
-    }else if (playerSelection == "paper") {
-        if (computerSelection == "Paper") {
-            console.log(`It's a draw! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} ties ${computerSelection}`);
-            return 2;
-        } else if (computerSelection == "Rock") {
-            console.log(`You Win! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} beats ${computerSelection}`);
-            return 1;
-        } else if (computerSelection == "Scissors") {
+    }else if (playerSelection == "rock" && computerSelection == "Paper" ||
+            playerSelection == "paper" && computerSelection == "Scissors" ||
+            playerSelection == "scissors" && computerSelection == "Rock") {
             console.log(`You Lose! ${computerSelection} beats ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)}`);
             return 0;
-        };
-    }else if (playerSelection == "scissors") {
-        if (computerSelection == "Scissors") {
-            console.log(`It's a draw! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} ties ${computerSelection}`);
-            return 2;
-        } else if (computerSelection == "Rock") {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)}`);
-            return 0;
-        } else if (computerSelection == "Scissors") {
-            console.log(`You Win! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} beats ${computerSelection}`);
-            return 1;
-        };
+    }else if (playerSelection == computerScore.toLowerCase()) {
+        console.log(`It's a draw! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} ties ${computerSelection}`);
+        return 2;
     }else {
         return -999;
-    };
+    }
 };
 
 function calculateScore(outcome) {
