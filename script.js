@@ -5,23 +5,22 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
+    const runningScore = document.querySelector('.running-score');
     if (playerSelection == "rock" && computerSelection == "Scissors" ||
             playerSelection == "paper" && computerSelection == "Rock" ||
             playerSelection == "scissors" && computerSelection == "Paper") {
-            console.log(`You Win! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} beats ${computerSelection}`);
-            return 1;
+        runningScore.textContent = `You Win! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} beats ${computerSelection}`;
+        return 1;
     }else if (playerSelection == "rock" && computerSelection == "Paper" ||
             playerSelection == "paper" && computerSelection == "Scissors" ||
             playerSelection == "scissors" && computerSelection == "Rock") {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)}`);
-            return 0;
+        runningScore.textContent = `You Lose! ${computerSelection} beats ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)}`;
+        return 0;
     }else if (playerSelection == computerSelection.toLowerCase()) {
-        console.log(`It's a draw! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} ties ${computerSelection}`);
+        runningScore.textContent = `It's a draw! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} ties ${computerSelection}`;
         return 2;
-    }else {
-        return -999;
-    }
-};
+    };
+}
 
 function calculateScore(outcome) {
     if (outcome == 1) {
@@ -36,24 +35,39 @@ function calculateScore(outcome) {
 
 function checkScore() {
     if (playerScore > computerScore) {
-        console.log(`Congratulations, you win! Your final score: ${playerScore} | Computer's final score: ${computerScore}`);
+        finalScore.textContent = `Congratulations, you win! Your final score: ${playerScore} | Computer's final score: ${computerScore}`;
     } else if (computerScore > playerScore) {
-        console.log(`You lost... Better luck next time! Your final score: ${playerScore} | Computer's final score: ${computerScore}`);
+        finalScore.textContent = `You lost... Better luck next time! Your final score: ${playerScore} | Computer's final score: ${computerScore}`;
     } else {
-        console.log(`It's a tie! Your final score: ${playerScore} | Computer's final score: ${computerScore}`);
+        finalScore.textContent = `It's a tie! Your final score: ${playerScore} | Computer's final score: ${computerScore}`;
+    };
+}
+
+function onClick(button) {
+    if(button.currentTarget.classList.contains('rock')) {
+        playerSelection = 'rock';
+    }else if(button.currentTarget.classList.contains('paper')) {
+        playerSelection = 'paper';
+    }else if(button.currentTarget.classList.contains('scissors')) {
+        playerSelection = 'scissors';
+    };
+    const computerSelection = computerPlay();
+    calculateScore(playRound(playerSelection, computerSelection), playerScore, computerScore);
+    finalScore.textContent = `Your score: ${playerScore} | Computer's score: ${computerScore}`;
+    if(playerScore >= 5 || computerScore >= 5){
+        checkScore(playerScore, computerScore);
+        buttons.forEach((button) => button.removeEventListener('click', onClick));
     };
 }
 
 function game() {
-    for (let i = 0; i < 5; i++) {
-        const playerSelection = prompt("Your turn!").toLowerCase();;
-        const computerSelection = computerPlay();
-        calculateScore(playRound(playerSelection, computerSelection), playerScore, computerScore);
-        console.log(`Your score: ${playerScore} | Computer's score: ${computerScore}`);
-    };
-    checkScore(playerScore, computerScore);
+    buttons.forEach((button) => button.addEventListener('click', onClick));
 }
 
 let playerScore = 0;
 let computerScore = 0;
+let playerSelection = '';
+const buttons = document.querySelectorAll('button');
+const finalScore = document.querySelector('.final-score');
+finalScore.textContent = `Your score: ${playerScore} | Computer's score: ${computerScore}`;
 game();
